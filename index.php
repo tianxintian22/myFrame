@@ -1,7 +1,5 @@
 <?php
-use App\Controller\Home\Index;
-use Baobab\FemaleUserStrategy;
-use Baobab\MaleUserStrategy;
+header("Content-Type: text/html; charset=UTF-8");
 define('BASEDIR',__DIR__);
 require BASEDIR.'/Baobab/Loader.php';
 spl_autoload_register('\\Baobab\\Loader::autoload');
@@ -53,25 +51,36 @@ spl_autoload_register('\\Baobab\\Loader::autoload');
 /**
  * 策略模式
  */
+
+// $page = new Baobab\Page();
+// if (isset($_GET['female'])){
+//     $strategy = new Baobab\FemaleUserStrategy();
+// }else{
+//     $strategy = new Baobab\MaleUserStrategy();
+// }
+// $page->setStrategy($strategy);
+// $page->Index();
+
+/**
+ * 数据对象映射模式
+ */
 class Page{
-     protected $strategy;
-     function Index(){
-         $this->strategy->showAd();
-         echo '<br/>';
-         $this->strategy->showCategory();
-     }
-     function setStrategy(Baobab\UserStrategy $strategy){
-         $this->strategy = $strategy;
-     }
+    function index(){
+        $hacl = Baobab\Factory::getHacl(13);
+        $hacl->haclname = '测试名称11123';
+        $this->test();
+        echo 'ok';
+    }
+
+    function test(){
+        $hacl = Baobab\Factory::getHacl(13);
+        $hacl->hacls = '测试案例22234';
+    }
 }
+
 $page = new Page();
-if (isset($_GET['female'])){
-    $strategy = new Baobab\FemaleUserStrategy();
-}else{
-    $strategy = new Baobab\MaleUserStrategy();
-}
-$page->setStrategy($strategy);
-$page->Index();
+$page->index();
+
 
 
 

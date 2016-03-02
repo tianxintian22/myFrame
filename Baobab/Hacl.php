@@ -7,7 +7,11 @@ class Hacl{
     public $haclcode;
     public $hacls;
     protected $db;
-    
+
+    /**
+     * Hacl constructor.
+     * @param $id
+     */
     function __construct($id){
         $this->db = new \Baobab\Database\Mysqli();
         $this->db->connect('127.0.0.1', 'root', '', 'test');
@@ -19,8 +23,12 @@ class Hacl{
         $this->hacls = $data['hacls'];
     }
     function __destruct(){
-        $res = $this->db->query("update ha_cl set ha_cl_code = {$this->haclname} where ID = {$this->id}");
-        print_r($res);
-        
+        $this->db->query("update ha_cl set
+                          ha_cl_code = '{$this->haclcode}',
+                          ha_cl_name = '{$this->haclname}',
+                          hacls = '{$this->hacls}'
+                          where ID = {$this->id}
+                          limit 1");
     }
+
 }

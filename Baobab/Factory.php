@@ -8,4 +8,14 @@ class Factory{
         Register::set('db1', $db);
         return $db;
     }
+
+    static function getHacl($id){
+        $key = 'user_'.$id;
+        $user = \Baobab\Register::get($key);
+        if(!$user){
+            $user = new \Baobab\Hacl($id);
+            \Baobab\Register::set($key, $user);
+        }
+        return $user;
+    }
 }
