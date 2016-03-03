@@ -78,11 +78,55 @@ class Page{
     }
 }
 
-$page = new Page();
-$page->index();
+//$page = new Page();
+//$page->index();
+
+/**
+ * 观察者模式
+ */
+
+class Event extends \Baobab\EventGenerator{
+    /**
+     *触发一个新的事件
+     */
+    function trigger(){
+        echo 'Event发生';
+        $this->notify();
+    }
+}
+
+/**
+ * 观察者
+ */
+class Observer1 implements \Baobab\Observer{
+    function Update($event_info = null){
+        echo '更新操作代码1';
+    }
+}
+
+class Observer2 implements \Baobab\Observer{
+    function Update($event_info = null){
+        echo '更新操作代码2';
+    }
+}
+
+//$event = new Event();
+//$event->addObserver(new Observer1());
+//$event->addObserver(new Observer2());
+//$event->trigger();
+
+/**
+ *  原型模式
+ */
+$prototype = new Baobab\Canvas();
+$prototype->init();
 
 
-
-
-
+$canvas1 = clone $prototype;
+$canvas1->rect(3,6,4,12);
+$canvas1->draw();
+echo '===================<br/>';
+$canvas2 = clone $prototype;
+$canvas2->rect(3,6,4,12);
+$canvas2->draw();
 
